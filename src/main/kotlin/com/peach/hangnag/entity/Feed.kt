@@ -1,9 +1,13 @@
 package com.peach.hangnag.entity
 
 import jakarta.persistence.Entity
+import jakarta.persistence.FetchType
 import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
+import jakarta.persistence.JoinColumn
+import jakarta.persistence.ManyToOne
+import java.time.LocalDateTime
 
 @Entity
 class Feed(
@@ -11,17 +15,28 @@ class Feed(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long = 0,
 
+    val createdAt: LocalDateTime = LocalDateTime.now(),
+
     title: String,
     content: String,
-    likeCount: Int,
-    stimulation: Int, // 자극
-    positive: Int,
-    negative: Int,
+    viewCount: Int = 0,
+    likeCount: Int = 0,
+    stimulation: Int = 0, // 자극
+    positive: Int = 50,
+    negative: Int = 50,
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
+    val user: User,
 ) {
     var title = title
         protected set
     var content = content
         protected set
+
+    var viewCount = viewCount
+        protected set
+
     var likeCount = likeCount
         protected set
     var stimulation = stimulation
@@ -29,4 +44,10 @@ class Feed(
     var positive = positive
         protected set
     var negative = negative
+        protected set
+
+    fun updateFeed(title: String, content: String) {
+        this.title = title
+        this.content = content
+    }
 }

@@ -18,11 +18,19 @@ class Comment(
     @JoinColumn(name = "feed_id", nullable = false)
     val feed: Feed,
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
+    val user: User,
+
     content: String,
-    likeCount: Int,
+    likeCount: Int = 0,
 ) {
     var content = content
         protected set
     var likeCount = likeCount
         protected set
+
+    fun updateComment(content: String) {
+        this.content = content
+    }
 }
