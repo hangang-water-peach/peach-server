@@ -1,6 +1,7 @@
 package com.peach.hangnag.controller
 
-import com.peach.hangnag.controller.dto.request.CreateCommentRequest
+import com.peach.hangnag.controller.dto.request.CreateFeedCommentRequest
+import com.peach.hangnag.controller.dto.request.CreateNewsCommentRequest
 import com.peach.hangnag.controller.dto.request.UpdateCommentRequest
 import com.peach.hangnag.service.CommentService
 import org.springframework.web.bind.annotation.DeleteMapping
@@ -17,12 +18,18 @@ class CommentController(
     private val commentService: CommentService,
 ) {
 
-    @PostMapping("/{feed-id}")
-    fun createComment(
-        @RequestBody request: CreateCommentRequest,
-        @PathVariable("feed-id") feedId: Long,
+    @PostMapping("/news")
+    fun createNewsComment(
+        @RequestBody request: CreateNewsCommentRequest,
     ) {
-        commentService.createComment(request, feedId)
+        commentService.createNewsComment(request)
+    }
+
+    @PostMapping("/feeds")
+    fun createFeedComment(
+        @RequestBody request: CreateFeedCommentRequest,
+    ) {
+        commentService.createFeedComment(request)
     }
 
     @PutMapping("/{comment-id}")

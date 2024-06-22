@@ -1,7 +1,7 @@
 package com.peach.hangnag.controller.dto.request
 
-data class CreateCommentRequest(
+data class CreateFeedCommentRequest(
     val email: String,
     val content: String,
-    val newsId: Long,
+    val feedId: Long,
 )

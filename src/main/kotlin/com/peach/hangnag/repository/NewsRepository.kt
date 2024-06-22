@@ -17,13 +17,13 @@ interface NewsRepository : CrudRepository<News, Long> {
             u.nickName AS userName,
             c.content AS comment
         FROM News AS n
-        INNER JOIN Comment AS c 
-        ON n.id = c.newsId
+        INNER JOIN NewsComment AS c
+        ON n.id = c.news.id
         INNER JOIN User AS u
         ON c.user.id = u.id
         WHERE c.id =(
             SELECT c1.id
-                FROM Comment c1
+                FROM FeedComment c1
                 ORDER BY c1.likeCount DESC
                 LIMIT 1
         )
@@ -42,13 +42,13 @@ interface NewsRepository : CrudRepository<News, Long> {
             u.nickName AS userName,
             c.content AS comment
         FROM News AS n
-        INNER JOIN Comment AS c 
-        ON n.id = c.newsId
+        INNER JOIN NewsComment AS c
+        ON n.id = c.news.id
         INNER JOIN User AS u
         ON c.user.id = u.id
         WHERE c.id =(
             SELECT c1.id
-                FROM Comment c1
+                FROM FeedComment c1
                 ORDER BY c1.likeCount DESC
                 LIMIT 1
         )

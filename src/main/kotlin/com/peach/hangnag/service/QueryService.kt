@@ -6,18 +6,40 @@ import com.peach.hangnag.controller.dto.response.PostElement
 import com.peach.hangnag.controller.dto.response.QueryDetailResponse
 import com.peach.hangnag.controller.dto.response.QueryIssueListResponse
 import com.peach.hangnag.controller.dto.response.QueryPostListResponse
+import com.peach.hangnag.repository.NewsCommentRepository
 import com.peach.hangnag.repository.FeedRepository
 import com.peach.hangnag.repository.NewsRepository
+import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 
 @Service
 class QueryService(
     private val newsRepository: NewsRepository,
     private val feedRepository: FeedRepository,
+    private val newsCommentRepository: NewsCommentRepository,
 ) {
 
     fun queryIssueDetail(newsId: Long): QueryDetailResponse {
-        val issueDetail =
+        val issueDetail = newsRepository.findByIdOrNull(newsId)
+            ?: throw RuntimeException()
+        val commentList = newsCommentRepository.findAllByNewsId(newsId)
+
+        val response = commentList.map { comment ->
+            QueryDetailResponse.CommentElement(
+                createDate = comment.createDate,
+                likeCount = comment.likeCount,
+                userName = comment.userName,
+            )
+        }
+
+        return QueryDetailResponse(
+            imageUrl = issueDetail.imageUrl,
+            title = issueDetail.title,
+            createDate = issueDetail.createDate,
+            viewCount = issueDetail.viewCount.toString(),
+            content = issueDetail.content,
+            commentList = response,
+        )
     }
 
     fun queryIssueList(sort: String): QueryIssueListResponse {

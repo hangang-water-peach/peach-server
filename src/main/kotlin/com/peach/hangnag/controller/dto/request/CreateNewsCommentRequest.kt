@@ -1,6 +1,7 @@
 package com.peach.hangnag.controller.dto.request
 
-data class UpdateCommentRequest(
+data class CreateNewsCommentRequest(
     val email: String,
     val content: String,
+    val newsId: Long,
 )

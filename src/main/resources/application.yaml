@@ -7,11 +7,7 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: create
-
-  jwt:
-    access_exp: 3600
-    secret_key: secret
+      ddl-auto: update
 
   cloud:
     aws:

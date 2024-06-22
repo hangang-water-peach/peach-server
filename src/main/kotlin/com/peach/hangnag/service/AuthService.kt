@@ -51,6 +51,8 @@ class AuthService(
             )
         )
 
-        return AuthTokenResponse(accessToken)
+        return AuthTokenResponse(
+            accessToken, googleInfoResponse.email
+        )
     }
 }

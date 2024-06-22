@@ -1,5 +1,6 @@
 package com.peach.hangnag.entity
 
+import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType
@@ -20,11 +21,15 @@ class News(
     createDate: LocalDate,
     link: String,
 ) {
+    @Column(length = 2000)
     var title = title
         protected set
+
+    @Column(length = 2000)
     var content = content
         protected set
 
+    @Column(length = 2000)
     var imageUrl = imageUrl
         protected set
 
@@ -36,6 +41,8 @@ class News(
 
     var createDate = createDate
         protected set
+
+    @Column(length = 2000)
     var link = link
         protected set
 }

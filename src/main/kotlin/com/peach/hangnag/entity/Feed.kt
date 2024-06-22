@@ -1,5 +1,6 @@
 package com.peach.hangnag.entity
 
+import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.FetchType
 import jakarta.persistence.GeneratedValue
@@ -17,6 +18,7 @@ class Feed(
 
     val createdAt: LocalDateTime = LocalDateTime.now(),
 
+    imageUrl: String = "",
     isIssue: Boolean, // true면 issue, false면 post
     title: String,
     content: String,
@@ -30,10 +32,18 @@ class Feed(
     @JoinColumn(name = "user_id", nullable = false)
     val user: User,
 ) {
+    @Column(length = 2000)
+    var imageUrl = imageUrl
+        protected set
+
     var isIssue = isIssue
         protected set
+
+    @Column(length = 2000)
     var title = title
         protected set
+
+    @Column(length = 2000)
     var content = content
         protected set
 

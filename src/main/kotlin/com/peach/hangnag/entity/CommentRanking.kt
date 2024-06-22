@@ -14,10 +14,10 @@ class CommentRanking(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long = 0,
 
-    comment: Comment,
+    feedComment: FeedComment,
 ) {
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "comment_id", nullable = false)
-    var comment = comment
+    var comment = feedComment
         protected set
 }

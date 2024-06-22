@@ -7,23 +7,30 @@ import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
 import jakarta.persistence.JoinColumn
 import jakarta.persistence.ManyToOne
+import java.time.LocalDate
 
 @Entity
-class Comment(
+class NewsComment(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long = 0,
 
-    val feedId: Long,
-    val newsId: Long,
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "news_id", nullable = false)
+    val news: News,
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     val user: User,
 
+    createdAt: LocalDate = LocalDate.now(),
+
     content: String,
     likeCount: Int = 0,
 ) {
+    var createdAt = createdAt
+        protected set
+
     var content = content
         protected set
     var likeCount = likeCount

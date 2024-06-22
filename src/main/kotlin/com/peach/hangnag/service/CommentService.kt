@@ -1,10 +1,14 @@
 package com.peach.hangnag.service
 
-import com.peach.hangnag.controller.dto.request.CreateCommentRequest
+import com.peach.hangnag.controller.dto.request.CreateFeedCommentRequest
+import com.peach.hangnag.controller.dto.request.CreateNewsCommentRequest
 import com.peach.hangnag.controller.dto.request.UpdateCommentRequest
-import com.peach.hangnag.entity.Comment
-import com.peach.hangnag.repository.CommentRepository
+import com.peach.hangnag.entity.FeedComment
+import com.peach.hangnag.entity.NewsComment
+import com.peach.hangnag.repository.FeedCommentRepository
 import com.peach.hangnag.repository.FeedRepository
+import com.peach.hangnag.repository.NewsCommentRepository
+import com.peach.hangnag.repository.NewsRepository
 import com.peach.hangnag.repository.UserRepository
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
@@ -14,20 +18,37 @@ import org.springframework.transaction.annotation.Transactional
 class CommentService(
     private val userRepository: UserRepository,
     private val feedRepository: FeedRepository,
-    private val commentRepository: CommentRepository,
+    private val feedCommentRepository: FeedCommentRepository,
+    private val newsCommentRepository: NewsCommentRepository,
+    private val newsRepository: NewsRepository,
 ) {
 
-    fun createComment(request: CreateCommentRequest, feedId: Long) {
+    fun createNewsComment(request: CreateNewsCommentRequest) {
         val user = userRepository.findByEmail(request.email)
             ?: throw RuntimeException()
 
-        val feed = feedRepository.findByIdOrNull(feedId)
+        val news = newsRepository.findByIdOrNull(request.newsId)
             ?: throw RuntimeException()
 
-        commentRepository.save(
-            Comment(
-                feedId = feed.id,
-                newsId = request.newsId,
+        newsCommentRepository.save(
+            NewsComment(
+                news = news,
+                user = user,
+                content = request.content,
+            )
+        )
+    }
+
+    fun createFeedComment(request: CreateFeedCommentRequest) {
+        val user = userRepository.findByEmail(request.email)
+            ?: throw RuntimeException()
+
+        val feed = feedRepository.findByIdOrNull(request.feedId)
+            ?: throw RuntimeException()
+
+        feedCommentRepository.save(
+            FeedComment(
+                feed = feed,
                 user = user,
                 content = request.content,
             )
@@ -36,7 +57,7 @@ class CommentService(
 
     @Transactional
     fun updateComment(request: UpdateCommentRequest, commentId: Long) {
-        val comment = commentRepository.findByIdOrNull(commentId)
+        val comment = newsCommentRepository.findByIdOrNull(commentId)
             ?: throw RuntimeException()
 
         comment.updateComment(request.content)
@@ -44,9 +65,9 @@ class CommentService(
 
     @Transactional
     fun deleteComment(commentId: Long) {
-        val comment = commentRepository.findByIdOrNull(commentId)
+        val comment = newsCommentRepository.findByIdOrNull(commentId)
             ?: throw RuntimeException()
 
-        commentRepository.delete(comment)
+        newsCommentRepository.delete(comment)
     }
 }
