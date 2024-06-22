@@ -5,6 +5,7 @@ data class QueryIssueListResponse(
 )
 
 data class IssueElement(
+    val id: Long,
     val imageUrl: String, // s3 upload 후 return
     val title: String,
     val date: String,

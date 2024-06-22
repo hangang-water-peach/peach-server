@@ -25,6 +25,7 @@ class CustomNewsRepositoryImpl(
 
         return queryFactory
             .select(
+                qNews.id,
                 qNews.imageUrl,
                 qNews.title,
                 qNews.createDate,
@@ -40,12 +41,13 @@ class CustomNewsRepositoryImpl(
             .fetch()
             .map { tuple ->
                 IssueVo(
+                    id = tuple.get(qNews.id)!!,
                     imageUrl = tuple.get(qNews.imageUrl)!!,
                     title = tuple.get(qNews.title)!!,
                     date = tuple.get(qNews.createDate)!!,
                     viewCount = tuple.get(qNews.viewCount)!!,
-                    userName = tuple.get(qUser.nickName)!!,
-                    comment = tuple.get(qNewsComment.content)!!
+                    userName = "엄청난 유저",
+                    comment = "엄청난 댓글",
                 )
             }
     }
@@ -63,6 +65,7 @@ class CustomNewsRepositoryImpl(
 
         return queryFactory
             .select(
+                qNews.id,
                 qNews.imageUrl,
                 qNews.title,
                 qNews.createDate,
@@ -78,12 +81,13 @@ class CustomNewsRepositoryImpl(
             .fetch()
             .map { tuple ->
                 IssueVo(
+                    id = tuple.get(qNews.id)!!,
                     imageUrl = tuple.get(qNews.imageUrl)!!,
                     title = tuple.get(qNews.title)!!,
                     date = tuple.get(qNews.createDate)!!,
                     viewCount = tuple.get(qNews.viewCount)!!,
-                    userName = tuple.get(qUser.nickName)!!,
-                    comment = tuple.get(qNewsComment.content)!!
+                    userName = "엄청난 유저",
+                    comment = "엄청난 댓글"
                 )
             }
     }

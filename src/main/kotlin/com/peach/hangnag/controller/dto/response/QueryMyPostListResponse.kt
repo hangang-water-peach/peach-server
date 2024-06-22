@@ -2,14 +2,14 @@ package com.peach.hangnag.controller.dto.response
 
 import java.time.LocalDateTime
 
-data class QueryPostListResponse(
-    val postList: List<PostElement>,
+data class QueryMyPostListResponse(
+    val postList: List<MyPostElement>,
 )
 
-data class PostElement(
+data class MyPostElement(
     val id: Long,
     val title: String,
     val date: LocalDateTime,
     val likeCount: Int,
-    val userName: String,
+    val commentCount: Int,
 )

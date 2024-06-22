@@ -17,6 +17,7 @@ class CustomFeedRepositoryImpl(
 
         val a = queryFactory
             .select(
+                qFeed.id,
                 qFeed.title,
                 qFeed.createdAt,
                 qFeed.likeCount,
@@ -28,6 +29,7 @@ class CustomFeedRepositoryImpl(
             .fetch()
             .map { tuple ->
                 PostVo(
+                    id = tuple.get(qFeed.id)!!,
                     title = tuple.get(qFeed.title)!!,
                     date = tuple.get(qFeed.createdAt)!!,
                     likeCount = tuple.get(qFeed.likeCount)!!,
@@ -35,7 +37,6 @@ class CustomFeedRepositoryImpl(
                 )
             }
 
-        println(a)
         return a
     }
 
@@ -45,6 +46,7 @@ class CustomFeedRepositoryImpl(
 
         return queryFactory
             .select(
+                qFeed.id,
                 qFeed.title,
                 qFeed.createdAt,
                 qFeed.likeCount,
@@ -57,6 +59,7 @@ class CustomFeedRepositoryImpl(
             .fetch()
             .map { tuple ->
                 PostVo(
+                    id = tuple.get(qFeed.id)!!,
                     title = tuple.get(qFeed.title)!!,
                     date = tuple.get(qFeed.createdAt)!!,
                     likeCount = tuple.get(qFeed.likeCount)!!,

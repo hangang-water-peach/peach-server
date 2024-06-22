@@ -22,6 +22,7 @@ class NewsCronService(
     private val naverClientSecret: String,
 ) {
     fun newsCron(queryKey: String): NewsResponse {
+        val user = Any()
         val items = newsClient.getNewsBySearchKey(
             queryKey = URLEncoder.encode(queryKey, Charset.forName("UTF-8")),
             clientId = naverClientId,
@@ -33,7 +34,7 @@ class NewsCronService(
                 title = news.title,
                 content = news.description,
                 createDate = dateParser(news.pubDate),
-                link = news.originallink
+                link = news.originallink,
             )
         }
         newsRepository.saveAll(newsList)
