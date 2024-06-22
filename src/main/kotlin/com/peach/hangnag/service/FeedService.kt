@@ -24,7 +24,6 @@ class FeedService(
                 title = request.title,
                 content = request.content,
                 user = user,
-                isIssue = false
             )
         )
     }

@@ -6,8 +6,8 @@ import com.peach.hangnag.controller.dto.response.PostElement
 import com.peach.hangnag.controller.dto.response.QueryDetailResponse
 import com.peach.hangnag.controller.dto.response.QueryIssueListResponse
 import com.peach.hangnag.controller.dto.response.QueryPostListResponse
-import com.peach.hangnag.repository.NewsCommentRepository
 import com.peach.hangnag.repository.FeedRepository
+import com.peach.hangnag.repository.NewsCommentRepository
 import com.peach.hangnag.repository.NewsRepository
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
@@ -53,8 +53,8 @@ class QueryService(
             IssueElement(
                 imageUrl = issue.imageUrl,
                 title = issue.title,
-                date = issue.date,
-                viewCount = issue.viewCount,
+                date = issue.date.toString(),
+                viewCount = issue.viewCount.toString(),
                 commentElement = CommentElement(
                     name = issue.userName,
                     content = issue.comment

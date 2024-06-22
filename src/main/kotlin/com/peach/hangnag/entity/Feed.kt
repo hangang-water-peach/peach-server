@@ -19,14 +19,10 @@ class Feed(
     val createdAt: LocalDateTime = LocalDateTime.now(),
 
     imageUrl: String = "",
-    isIssue: Boolean, // true면 issue, false면 post
     title: String,
     content: String,
     viewCount: Int = 0,
     likeCount: Int = 0,
-    stimulation: Int = 0, // 자극
-    positive: Int = 50,
-    negative: Int = 50,
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
@@ -34,9 +30,6 @@ class Feed(
 ) {
     @Column(length = 2000)
     var imageUrl = imageUrl
-        protected set
-
-    var isIssue = isIssue
         protected set
 
     @Column(length = 2000)
@@ -51,12 +44,6 @@ class Feed(
         protected set
 
     var likeCount = likeCount
-        protected set
-    var stimulation = stimulation
-        protected set
-    var positive = positive
-        protected set
-    var negative = negative
         protected set
 
     fun updateFeed(title: String, content: String) {
