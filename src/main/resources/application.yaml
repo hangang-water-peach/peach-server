@@ -7,11 +7,21 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
 
   jwt:
     access_exp: 3600
     secret_key: secret
+
+  cloud:
+    aws:
+      s3:
+        bucket: ${S3_BUCKET}
+      stack.auto: false
+      region.static: ap-northeast-2
+      credentials:
+        accessKey: ${S3_ACCESS_KEY}
+        secretKey: ${S3_SECRET_KEY}
 
   security:
     oauth2:
@@ -31,3 +41,8 @@ spring:
 naver:
   client-id: ${NAVER_CLIENT_ID}
   client-secret: ${NAVER_CLIENT_SECRET}
+
+ngrok:
+  enabled: true
+  authToken: ${NGROK_AUTH_TOKEN}
+  command: http 8080 --domain=mullet-teaching-wallaby.ngrok-free.app

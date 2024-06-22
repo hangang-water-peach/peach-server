@@ -23,7 +23,8 @@ class FeedService(
             Feed(
                 title = request.title,
                 content = request.content,
-                user = user
+                user = user,
+                isIssue = false
             )
         )
     }

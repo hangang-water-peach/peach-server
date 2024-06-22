@@ -17,6 +17,7 @@ class Feed(
 
     val createdAt: LocalDateTime = LocalDateTime.now(),
 
+    isIssue: Boolean, // true면 issue, false면 post
     title: String,
     content: String,
     viewCount: Int = 0,
@@ -29,6 +30,8 @@ class Feed(
     @JoinColumn(name = "user_id", nullable = false)
     val user: User,
 ) {
+    var isIssue = isIssue
+        protected set
     var title = title
         protected set
     var content = content
