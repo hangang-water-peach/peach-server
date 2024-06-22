@@ -15,6 +15,8 @@ class News(
     title: String,
     content: String,
     imageUrl: String = "",
+    viewCount: Int = 0,
+    likeCount: Int = 0,
     createDate: LocalDate,
     link: String,
 ) {
@@ -24,6 +26,12 @@ class News(
         protected set
 
     var imageUrl = imageUrl
+        protected set
+
+    var viewCount = viewCount
+        protected set
+
+    var likeCount = likeCount
         protected set
 
     var createDate = createDate

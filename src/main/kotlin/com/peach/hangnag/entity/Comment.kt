@@ -14,9 +14,8 @@ class Comment(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long = 0,
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "feed_id", nullable = false)
-    val feed: Feed,
+    val feedId: Long,
+    val newsId: Long,
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)

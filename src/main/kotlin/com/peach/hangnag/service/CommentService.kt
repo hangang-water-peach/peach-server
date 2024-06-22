@@ -26,7 +26,8 @@ class CommentService(
 
         commentRepository.save(
             Comment(
-                feed = feed,
+                feedId = feed.id,
+                newsId = request.newsId,
                 user = user,
                 content = request.content,
             )
